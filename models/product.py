@@ -1,6 +1,5 @@
-from ..utils.extensions import db
+from utils.extensions import db
 from datetime import datetime
-
 
 class Product(db.Model):
     __tablename__ = "products"
@@ -11,4 +10,4 @@ class Product(db.Model):
     quantity = db.Column(db.Integer, nullable=False, default=0)
     created_at = db.Column(db.DateTime, default=datetime.now)
 
-    stock_requests = db.relationship("StockRequests", back_populates="product")
+    stock_requests = db.relationship("StockRequest", back_populates="product")
