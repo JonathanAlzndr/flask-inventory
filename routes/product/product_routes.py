@@ -1,11 +1,12 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
 from services.product_service import get_product_by_id_service, create_product_service, get_all_product_service, update_product_service, delete_product_service
+from utils.decorators import admin_required
 
 product_bp = Blueprint('product', __name__, url_prefix='/products')
 
 @product_bp.route('/', methods=["POST"])
-@jwt_required()
+@admin_required
 def create_product_route():
     data = request.get_json()
     product = create_product_service(
@@ -32,7 +33,7 @@ def get_product_by_id(product_id):
         return jsonify({"message": "product not found"}), 404
     
 @product_bp.route('/<int:product_id>', methods=['DELETE'])
-@jwt_required()
+@admin_required
 def delete_product_by_id(product_id):
     result = delete_product_service(product_id)
 
