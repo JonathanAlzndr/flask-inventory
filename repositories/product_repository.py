@@ -18,29 +18,26 @@ def delete_product(id):
 
     return True
 
-def update_product(id, new_product):
+def update_product(id, name, description, quantity):
     product = Product.query.get(id)
 
     if not product:
         return False
     
-    if "name" in new_product:
-        product.name = new_product["name"]
-    if "description" in new_product:
-        product.description = new_product["description"]
-    if "quantity" in new_product:
-        product.quantity = new_product["quantity"]
+    if name is not None:
+        product.name = name
+    if description is not None:
+        product.description = description
+    if quantity is not None:
+        product.quantity = quantity
     
     db.session.commit()
+    return True
 
 def get_product_by_id(id):
     return Product.query.get(id)
 
-def get_all_product(limit):
-    query = Product.query
-    if limit:
-        query = query.limit(limit)
-    return query.all()
-
+def get_all_product(limit: int = 10, offset: int = 0):
+    return Product.query.offset(offset=offset).limit(limit=limit).all()
 
 

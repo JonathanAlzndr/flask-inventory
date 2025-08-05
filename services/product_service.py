@@ -1,4 +1,3 @@
-from utils.security import hash_password, verify_password
 from repositories.product_repository import (
     create_product as repo_create, 
     get_all_product as repo_get_all, 
@@ -12,11 +11,11 @@ def create_product_service(name, description, quantity=0):
 def delete_product_service(id):
     return repo_delete(id)
 
-def get_all_product_service(limit):
-    return repo_get_all(limit)
+def get_all_product_service(limit: int=10, offset: int=0):
+    return repo_get_all(limit=limit, offset=offset)
 
 def get_product_by_id_service(id):
     return repo_get_by_id(id)
 
-def update_product_service(name, description, quantity=0):
-    return repo_update(name, description, quantity)
+def update_product_service(id, name, description, quantity=0):
+    return repo_update(id, name, description, quantity)
